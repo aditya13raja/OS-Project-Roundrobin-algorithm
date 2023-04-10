@@ -2,7 +2,6 @@ import java.util.*;
  
 class RoundRobin{
     private static Scanner inp = new Scanner(System.in);
-    //Driver Code
     public static void main(String[] args){
         int n,tq, timer = 0, maxProccessIndex = 0;
         float avgWait = 0, avgTT = 0;
@@ -28,11 +27,11 @@ class RoundRobin{
             temp_burst[i] = burst[i];
         }
  
-        for(int i = 0; i < n; i++){    //Initializing the queue and complete array
+        for(int i = 0; i < n; i++){   
             complete[i] = false;
             queue[i] = 0;
         }
-        while(timer < arrival[0])    //Incrementing Timer until the first process arrives
+        while(timer < arrival[0])  
             timer++;
         queue[0] = 1;
          
@@ -53,16 +52,13 @@ class RoundRobin{
                     temp_burst[queue[0]-1] -= 1;
                     timer += 1;
                     ctr++;
- 
-                    //Updating the ready queue until all the processes arrive
                     checkNewArrival(timer, arrival, n, maxProccessIndex, queue);
                 }
                 if((temp_burst[queue[0]-1] == 0) && (complete[queue[0]-1] == false)){
-                    turn[queue[0]-1] = timer;        //turn currently stores exit times
+                    turn[queue[0]-1] = timer;        
                     complete[queue[0]-1] = true;
                 }
-                 
-                  //checks whether or not CPU is idle
+               
                 boolean idle = true;
                 if(queue[n-1] == 0){
                     for(int k = 0; k < n && queue[k] != 0; k++){
@@ -79,7 +75,6 @@ class RoundRobin{
                     checkNewArrival(timer, arrival, n, maxProccessIndex, queue);
                 }
                
-                //Maintaining the entries of processes after each premption in the ready Queue
                 queueMaintainence(queue,n);
             }
         }
@@ -126,7 +121,7 @@ class RoundRobin{
                     }
                 }
             }
-            if(newArrival)    //adds the index of the arriving process(if any)
+            if(newArrival)    
                 queueUpdation(queue,timer,arrival,n, maxProccessIndex);       
         }
     }
